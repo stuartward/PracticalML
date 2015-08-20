@@ -1,6 +1,4 @@
-Welcome to the repo for the Practical Machine Learning - Course Project - Writeup
-
-## For the Course Project Graders
+### For the Course Project Graders
 
 Several options exist for viewing the writeup document, including:
 
