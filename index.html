@@ -118,7 +118,7 @@ testing &lt;- testing[,-c(1,2,3,4,5,6,7,60)]</code></pre>
 </div>
 <div id="model-building-and-accuracyerror-metrics" class="section level4">
 <h4><strong>6. Model building and accuracy/error metrics</strong></h4>
-<p>     <strong>A.</strong> This is a large, dense, robust data set; which is a sign that we <strong>may not need to incur the performance and time costs that come with K-fold cross validation</strong>. The first model will utilize the cross validation method of a simple hold-out validation set, consisting of a 70/30 random stratified split of the training data.</p>
+<p>     <strong>A.</strong> This is a large, dense, robust data set; which is a sign that we <strong>may not need to incur the performance and time costs that come with K-fold cross validation</strong>. The first model will utilize the <strong>cross validation method of a simple hold-out validation set</strong>, consisting of a 70/30 random stratified split of the training data.</p>
 <pre class="r"><code>library(caret)</code></pre>
 <pre><code>## Loading required package: lattice
 ## Loading required package: ggplot2</code></pre>
@@ -134,7 +134,7 @@ trainingForValidation &lt;- training[-InTrain,]</code></pre>
 <p>Stop timer and report on training time</p>
 <pre class="r"><code>runTime &lt;- Sys.time() - startTime
 runTime</code></pre>
-<pre><code>## Time difference of 0.5626278 secs</code></pre>
+<pre><code>## Time difference of 0.5539219 secs</code></pre>
 <p>Predict using the model on the 30% of the training data</p>
 <pre class="r"><code>qdaPred &lt;- predict(qdaTrain, newdata = trainingForValidation[,-53])</code></pre>
 <p>Display the results of the predictions</p>
@@ -143,33 +143,33 @@ runTime</code></pre>
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1552   60    0    0    0
-##          B   52  958   51    5   33
-##          C   32  109  961  133   32
-##          D   29    1    9  815   27
-##          E    9   11    5   11  990
+##          A 1561   66    0    1    0
+##          B   56  943   48    2   42
+##          C   31  118  966  135   46
+##          D   23    3    8  819   24
+##          E    3    9    4    7  970
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.8965          
-##                  95% CI : (0.8885, 0.9042)
+##                Accuracy : 0.8936          
+##                  95% CI : (0.8855, 0.9014)
 ##     No Information Rate : 0.2845          
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.8693          
+##                   Kappa : 0.8656          
 ##  Mcnemar's Test P-Value : &lt; 2.2e-16       
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9271   0.8411   0.9366   0.8454   0.9150
-## Specificity            0.9858   0.9703   0.9370   0.9866   0.9925
-## Pos Pred Value         0.9628   0.8717   0.7585   0.9251   0.9649
-## Neg Pred Value         0.9714   0.9622   0.9859   0.9702   0.9811
+## Sensitivity            0.9325   0.8279   0.9415   0.8496   0.8965
+## Specificity            0.9841   0.9688   0.9321   0.9882   0.9952
+## Pos Pred Value         0.9588   0.8643   0.7454   0.9339   0.9768
+## Neg Pred Value         0.9735   0.9591   0.9869   0.9710   0.9771
 ## Prevalence             0.2845   0.1935   0.1743   0.1638   0.1839
-## Detection Rate         0.2637   0.1628   0.1633   0.1385   0.1682
-## Detection Prevalence   0.2739   0.1867   0.2153   0.1497   0.1743
-## Balanced Accuracy      0.9564   0.9057   0.9368   0.9160   0.9537</code></pre>
+## Detection Rate         0.2653   0.1602   0.1641   0.1392   0.1648
+## Detection Prevalence   0.2766   0.1854   0.2202   0.1490   0.1687
+## Balanced Accuracy      0.9583   0.8984   0.9368   0.9189   0.9458</code></pre>
 <hr />
 <p><strong>Summary of <span style="color:red">QDA</span> model results</strong><br /><strong>- The time to train the model is less than one second</strong><br /><strong>- The model accuracy is greater than 89% (out of sample error &lt; 11%)</strong></p>
 <hr />
@@ -185,7 +185,7 @@ runTime</code></pre>
 <p>Stop timer and report on training time</p>
 <pre class="r"><code>runTime &lt;- Sys.time() - startTime
 runTime</code></pre>
-<pre><code>## Time difference of 30.41635 secs</code></pre>
+<pre><code>## Time difference of 30.06069 secs</code></pre>
 <p>Predict using the model on the 30% of the training data</p>
 <pre class="r"><code>rfPred &lt;- predict(rfTrain, newdata = trainingForValidation)</code></pre>
 <p>Display the results of the predictions</p>
@@ -194,33 +194,33 @@ runTime</code></pre>
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1674    8    0    0    0
-##          B    0 1126    4    0    0
-##          C    0    5 1018   11    1
-##          D    0    0    4  952    0
-##          E    0    0    0    1 1081
+##          A 1674    6    0    0    0
+##          B    0 1131    3    0    0
+##          C    0    2 1019    8    0
+##          D    0    0    4  956    1
+##          E    0    0    0    0 1081
 ## 
 ## Overall Statistics
-##                                          
-##                Accuracy : 0.9942         
-##                  95% CI : (0.9919, 0.996)
-##     No Information Rate : 0.2845         
-##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16      
-##                                          
-##                   Kappa : 0.9927         
-##  Mcnemar's Test P-Value : NA             
+##                                           
+##                Accuracy : 0.9959          
+##                  95% CI : (0.9939, 0.9974)
+##     No Information Rate : 0.2845          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.9948          
+##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            1.0000   0.9886   0.9922   0.9876   0.9991
-## Specificity            0.9981   0.9992   0.9965   0.9992   0.9998
-## Pos Pred Value         0.9952   0.9965   0.9836   0.9958   0.9991
-## Neg Pred Value         1.0000   0.9973   0.9984   0.9976   0.9998
+## Sensitivity            1.0000   0.9930   0.9932   0.9917   0.9991
+## Specificity            0.9986   0.9994   0.9979   0.9990   1.0000
+## Pos Pred Value         0.9964   0.9974   0.9903   0.9948   1.0000
+## Neg Pred Value         1.0000   0.9983   0.9986   0.9984   0.9998
 ## Prevalence             0.2845   0.1935   0.1743   0.1638   0.1839
-## Detection Rate         0.2845   0.1913   0.1730   0.1618   0.1837
-## Detection Prevalence   0.2858   0.1920   0.1759   0.1624   0.1839
-## Balanced Accuracy      0.9991   0.9939   0.9944   0.9934   0.9994</code></pre>
+## Detection Rate         0.2845   0.1922   0.1732   0.1624   0.1837
+## Detection Prevalence   0.2855   0.1927   0.1749   0.1633   0.1837
+## Balanced Accuracy      0.9993   0.9962   0.9956   0.9953   0.9995</code></pre>
 <hr />
 <p><strong>Summary of <span style="color:red">Random Forest</span> model results</strong><br /><strong>- The time to train the model is approximately 30 seconds</strong><br /><strong>- The model accuracy is greater than 99% (out of sample error &lt; 1%)</strong><br /><strong>- The results confirm that <em>K-fold cross validation is not necessary</em> to produce a highly accurate model. For this particular data set, utilizing the cross validation method of a simple random stratified split of the data is appropriate.</strong></p>
 <hr />
