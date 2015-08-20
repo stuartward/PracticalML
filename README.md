@@ -1,4 +1,4 @@
-### For the Course Project Graders
+# For the Course Project Graders
 
 Several options exist for viewing the writeup document, including:
 
